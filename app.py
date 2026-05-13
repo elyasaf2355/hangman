@@ -9,6 +9,7 @@ def word_init(word_list):
     return word, word_x
 
 #cli methods
+
 def show_word(word_x):
     print(f"Word to guess: {"".join(word_x)}")
 def show_tries(left_tries):
@@ -19,6 +20,8 @@ def success_message():
     print("\nG-R-A-T-U-L-A-T-I-O-N-S-!\n You win the game")
 def fail_message():
     print("\nG-O-O-D-B-Y-E   L-O-S-E-R..!\nMaybe next time")
+def separate():
+    print("*" * 40)
 
 #logic methods
 def in_word(char, word):
@@ -30,10 +33,24 @@ def x_word_update(word_x, word, char):
     return word_x
 def word_complete(word_x):
     return not '_' in word_x
+def valid_input(char, guessed_chars):
+    if not char.isalpha():
+        print("ERROR: must be char")
+        print("try again")
+        return False
+    elif len(char) > 1:
+        print("ERROR: must be ONE char")
+        print("try again")
+        return False
+    elif char in guessed_chars:
+        print("you already guessed this char.")
+        print("try again")
+        return False
+    return True
 
 #app flow
 def app(word_list, max_tries):
-#init
+    #init
     #guessed_chars to prevent duplicate chars tries
     guessed_chars = []
     word, word_x = word_init(word_list)
@@ -42,6 +59,11 @@ def app(word_list, max_tries):
         show_tries(left_tries)
         show_word(word_x)
         user_char = get_char()
+        separate()
+
+        if not valid_input(user_char, guessed_chars):
+            separate()
+            continue
         guessed_chars.append(user_char)
         if in_word(user_char, word):
             word_x = x_word_update(word_x, word, user_char)
