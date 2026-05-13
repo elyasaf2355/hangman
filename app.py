@@ -3,37 +3,37 @@ import random
 WORDS_LIST = ["apple", "banana", "cherry", "mango", "orange"]
 MAX_TRIES = 5
 #init
-def word_init(word_list):
+def word_init(word_list: list[str])-> tuple[str, list]:
     word = random.choice(word_list)
     word_x = ["_"] * len(word)
     return word, word_x
 
 #cli methods
 
-def show_word(word_x):
+def show_word(word_x: list[str])-> None:
     print(f"Word to guess: {"".join(word_x)}")
-def show_tries(left_tries):
+def show_tries(left_tries: int)-> None:
     print(f"Tries left: {left_tries}")
-def get_char():
+def get_char()-> str:
     return input("Enter char: ")
-def success_message():
+def success_message()-> None:
     print("\nG-R-A-T-U-L-A-T-I-O-N-S-!\n You win the game")
-def fail_message():
+def fail_message()-> None:
     print("\nG-O-O-D-B-Y-E   L-O-S-E-R..!\nMaybe next time")
-def separate():
+def separate()-> None:
     print("*" * 40)
 
 #logic methods
-def in_word(char, word):
+def in_word(char, word)-> bool:
     return char.lower() in word
-def x_word_update(word_x, word, char):
+def x_word_update(word_x, word, char)-> list[str]:
     for i in range(len(word)):
         if word[i] == char:
             word_x[i] = char
     return word_x
-def word_complete(word_x):
+def word_complete(word_x)-> bool:
     return not '_' in word_x
-def valid_input(char, guessed_chars):
+def valid_input(char, guessed_chars)-> bool:
     if not char.isalpha():
         print("ERROR: must be char")
         print("try again")
@@ -49,7 +49,7 @@ def valid_input(char, guessed_chars):
     return True
 
 #app flow
-def app(word_list, max_tries):
+def app(word_list, max_tries)-> None:
     #init
     #guessed_chars to prevent duplicate chars tries
     guessed_chars = []
