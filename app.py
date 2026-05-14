@@ -1,16 +1,21 @@
 import random
 #variables
-WORDS_LIST = ["apple", "banana", "cherry", "mango", "orange"]
+WORDS_LIST = ["green apple", " yellow banana", "cherry", "mango", "orange"]
 MAX_TRIES = 5
 #init
 def word_init(word_list: list[str])-> tuple[str, list]:
+    """this func choose random word from words list and return the word and list that represent mask word"""
     word = random.choice(word_list)
     word_x = ["_"] * len(word)
+    for i in range(len(word)):
+        if word[i] == " ":
+            word_x[i] = " "
     return word, word_x
 
 #cli methods
 
 def show_word(word_x: list[str])-> None:
+    """turning the list represent mask word to string and print it to user"""
     print(f"Word to guess: {"".join(word_x)}")
 def show_tries(left_tries: int)-> None:
     print(f"Tries left: {left_tries}")
@@ -25,15 +30,19 @@ def separate()-> None:
 
 #logic methods
 def in_word(char, word)-> bool:
+    """check if a char is part of the word"""
     return char.lower() in word
 def x_word_update(word_x, word, char)-> list[str]:
+    """update the list of mask word by the char that was found"""
     for i in range(len(word)):
         if word[i] == char:
             word_x[i] = char
     return word_x
 def word_complete(word_x)-> bool:
+    """check if all chars in the word was found"""
     return not '_' in word_x
 def valid_input(char, guessed_chars)-> bool:
+    """validate that the input is only one alpha letter"""
     if not char.isalpha():
         print("ERROR: must be char")
         print("try again")
@@ -50,6 +59,7 @@ def valid_input(char, guessed_chars)-> bool:
 
 #app flow
 def app(word_list, max_tries)-> None:
+    """the flow of the program itself"""
     #init
     #guessed_chars to prevent duplicate chars tries
     guessed_chars = []
@@ -71,8 +81,12 @@ def app(word_list, max_tries)-> None:
             left_tries -= 1
     #end game
     if word_complete(word_x):
+        show_word(word)
+        separate()
         success_message()
     else:
+        show_word(word)
+        separate()
         fail_message()
 
 #app
