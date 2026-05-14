@@ -1,4 +1,7 @@
+#github repo link:  https://github.com/elyasaf2355/hangman
+
 import random
+
 #variables
 WORDS_LIST = ["green apple", " yellow banana", "cherry", "mango", "orange"]
 MAX_TRIES = 5
