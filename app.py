@@ -2,6 +2,10 @@ import random
 #variables
 WORDS_LIST = ["green apple", " yellow banana", "cherry", "mango", "orange"]
 MAX_TRIES = 5
+RED = 31
+GREEN = 32
+YELLOW = 33
+BLUE = 34
 #init
 def word_init(word_list: list[str])-> tuple[str, list]:
     """this func choose random word from words list and return the word and list that represent mask word"""
@@ -12,6 +16,9 @@ def word_init(word_list: list[str])-> tuple[str, list]:
             word_x[i] = " "
     return word, word_x
 
+#styling
+def colorprint(text: str, color: int):
+    print(f"\033[{color}m{text}\033[0m")
 #cli methods
 
 def show_word(word_x: list[str])-> None:
@@ -22,11 +29,11 @@ def show_tries(left_tries: int)-> None:
 def get_char()-> str:
     return input("Enter char: ")
 def success_message()-> None:
-    print("\nG-R-A-T-U-L-A-T-I-O-N-S-!\n You win the game")
+    colorprint("\nG-R-A-T-U-L-A-T-I-O-N-S-!\n You win the game", GREEN)
 def fail_message()-> None:
-    print("\nG-O-O-D-B-Y-E   L-O-S-E-R..!\nMaybe next time")
+    colorprint("\nG-O-O-D-B-Y-E   L-O-S-E-R..!\nMaybe next time", RED)
 def separate()-> None:
-    print("*" * 40)
+    colorprint("*" * 40, YELLOW)
 
 #logic methods
 def in_word(char, word)-> bool:
@@ -36,7 +43,7 @@ def x_word_update(word_x, word, char)-> list[str]:
     """update the list of mask word by the char that was found"""
     for i in range(len(word)):
         if word[i] == char:
-            word_x[i] = char
+            word_x[i] = f"\033[{BLUE}m{char}\033[0m"
     return word_x
 def word_complete(word_x)-> bool:
     """check if all chars in the word was found"""
